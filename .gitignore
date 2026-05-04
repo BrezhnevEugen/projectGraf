@@ -1,0 +1,15 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+.DS_Store
+*.log
+.cache/
+*.tsbuildinfo
+projectgraf.db
+projectgraf.db-journal
+projectgraf.db-shm
+projectgraf.db-wal
+.vite/
+coverage/

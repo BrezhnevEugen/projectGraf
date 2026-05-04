@@ -1,0 +1,36 @@
+{
+  "name": "projectgraf",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local source-code analyzer that visualizes architectural relationships as an interactive graph with AI-driven analysis.",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "predev": "npm run build:shared",
+    "dev": "npm-run-all --parallel dev:shared dev:api dev:web",
+    "dev:shared": "npm --workspace @projectgraf/shared run dev",
+    "dev:api": "npm --workspace @projectgraf/api run dev",
+    "dev:web": "npm --workspace @projectgraf/web run dev",
+    "dev:desktop": "npm --workspace @projectgraf/desktop run dev",
+    "desktop": "npm-run-all --parallel dev:shared dev:api dev:web dev:desktop",
+    "build": "npm-run-all --serial build:shared build:api build:web",
+    "build:shared": "npm --workspace @projectgraf/shared run build",
+    "build:api": "npm --workspace @projectgraf/api run build",
+    "build:web": "npm --workspace @projectgraf/web run build",
+    "typecheck": "npm-run-all --parallel typecheck:*",
+    "typecheck:shared": "npm --workspace @projectgraf/shared run typecheck",
+    "typecheck:api": "npm --workspace @projectgraf/api run typecheck",
+    "typecheck:web": "npm --workspace @projectgraf/web run typecheck",
+    "clean": "rm -rf apps/*/dist packages/*/dist apps/*/node_modules packages/*/node_modules node_modules"
+  },
+  "devDependencies": {
+    "npm-run-all": "^4.1.5",
+    "typescript": "^5.6.3"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
