@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { GraphCanvas } from './components/GraphCanvas.js';
+import { Graph3DCanvas } from './components/Graph3DCanvas.js';
 import { Sidebar } from './components/Sidebar.js';
 import { ScanPanel } from './components/ScanPanel.js';
 import { AISettingsPanel } from './components/AISettingsPanel.js';
@@ -7,9 +8,11 @@ import { SmellsPanel } from './components/SmellsPanel.js';
 import { useAppStore } from './store/store.js';
 
 type Tab = 'details' | 'smells';
+type View = '2d' | '3d';
 
 export default function App() {
   const [tab, setTab] = useState<Tab>('details');
+  const [view, setView] = useState<View>('2d');
   const graph = useAppStore((s) => s.graph);
 
   return (
@@ -30,7 +33,21 @@ export default function App() {
             {graph.stats.edgesTotal} edges
           </div>
         )}
-        <GraphCanvas />
+        <div className="absolute top-3 right-3 z-10 flex bg-panel/80 border border-edge rounded text-xs">
+          <button
+            className={`px-3 py-1 ${view === '2d' ? 'bg-panel-2 text-white' : 'text-muted'}`}
+            onClick={() => setView('2d')}
+          >
+            2D
+          </button>
+          <button
+            className={`px-3 py-1 ${view === '3d' ? 'bg-panel-2 text-white' : 'text-muted'}`}
+            onClick={() => setView('3d')}
+          >
+            3D
+          </button>
+        </div>
+        {view === '2d' ? <GraphCanvas /> : <Graph3DCanvas />}
       </main>
 
       <aside className="border-l border-edge bg-panel flex flex-col overflow-hidden">
